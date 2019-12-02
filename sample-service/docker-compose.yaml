@@ -1,0 +1,22 @@
+version: '2'
+services:
+  nginx-test:
+    restart: always
+    image: nginx
+    networks:
+      vpc: 
+        aliases: 
+        - ${VIRTUAL_HOST}
+    environment:
+      - VIRTUAL_HOST
+      - VIRTUAL_PORT
+      - LETSENCRYPT_HOST
+      - LETSENCRYPT_EMAIL
+networks:
+  vpc:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "true"
+    ipam:
+      driver: default
+
